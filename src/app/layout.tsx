@@ -1,10 +1,18 @@
-// src/app/layout.tsx
+import { ThemeProvider } from '@/components/themeProvider';
 import './globals.css';
 import type { Metadata } from 'next';
+import { Inter, Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  weight: ['400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-roboto',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Gestão Autônoma',
-  description: 'Gere contratos e gerencie seu negócio com facilidade',
+  title: 'Portaria Link',
+  description: 'Faça a gestão de encomendas do seu condominio',
 };
 
 export default function RootLayout({
@@ -13,9 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${roboto.variable}`} suppressHydrationWarning>
       <body className="antialiased bg-gray-50 text-gray-900">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
