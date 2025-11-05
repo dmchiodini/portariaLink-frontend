@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users, Home, Package, User, CircleUser } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -16,7 +15,6 @@ const menuItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { theme } = useTheme();
 
   return (
     <aside className="flex flex-col justify-between bg-foreground dark:bg-gray-800 border-r border-slate-200 dark:border-gray-700 p-4">
@@ -43,7 +41,7 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <div className="flex items-center gap-2 bg-background/20 p-3 rounded-md text-sm">
+      <div className="flex items-center gap-2 bg-slate-600 p-3 rounded-md text-sm">
         <CircleUser size={20} color="#FFFFFF" />
         <span className="font-semibold text-white w-full">Liliam Marques</span>
       </div>

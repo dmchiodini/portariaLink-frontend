@@ -23,3 +23,9 @@ export function useAuthGuard() {
     if (!token) router.push('/');
   }
 }
+
+export function logout() {
+  Cookies.remove('token');
+  window.location.href = '/';
+}
+

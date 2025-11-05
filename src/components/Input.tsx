@@ -56,7 +56,7 @@ export const Input = ({
               id={name}
               type={inputType}
               placeholder={placeholder}
-              className={`text-slate-700 border border-slate-200 ${Icon ? 'pl-10' : 'pl-3'} ${isPasswordInput ? 'pr-10' : 'pr-3'} ${error ? 'border-red-600' : ''}`}
+              className={`text-slate-700 border border-slate-300 ${Icon ? 'pl-10' : 'pl-3'} ${isPasswordInput ? 'pr-10' : 'pr-3'} ${error ? 'border-red-600' : ''}`}
               {...props}
             />
 

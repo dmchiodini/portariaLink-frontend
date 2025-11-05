@@ -2,13 +2,15 @@
 import { useRouter } from "next/navigation";
 import { saveToken } from "@/lib/auth";
 import api from "@/lib/api";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { LockKeyhole, Mail } from "lucide-react";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.email("E-mail inválido").min(1, "E-mail é obrigatório"),
@@ -19,21 +21,28 @@ type LoginData = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginData>({
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+
+  const methods = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   });
 
+  const { handleSubmit, formState: { isSubmitting },
+  } = methods;
+
   const onSubmit = async (data: LoginData) => {
+    setSubmissionError(null);
     try {
       const res = await api.post("/auth/login", data);
       saveToken(res.data.data.access_token);
       router.push("/dashboard");
     } catch (err: any) {
-      alert(err?.response?.data?.message || "Erro ao fazer login");
+      setSubmissionError(err?.response?.data?.message || "Ocorreu um erro inesperado ao fazer login.");
+      console.error(err);
     }
   };
 
@@ -57,53 +66,48 @@ export default function Login() {
             height={100}
             className="md:hidden block"
           />
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <div className="md:bg-slate-200  p-4 rounded-xl w-full">
-              <h1 className="text-2xl font-bold mb-4 text-center text-slate-700">
-                Bem vindo
-              </h1>
-              <div className="mb-4 w-full">
-                <Input
-                  defaultValue=""
-                  type="email"
-                  placeholder="E-mail"
-                  className="bg-white"
-                  {...register("email", { required: true })}
-                />
-                <span className="text-red-600 -mt-6 text-xs pl-2">
-                  {errors?.email?.message}
-                </span>
-              </div>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+              <div className="md:bg-slate-200  p-4 rounded-xl w-full">
+                <h1 className="text-2xl font-bold mb-4 text-center text-slate-700">
+                  Bem vindo
+                </h1>
+                <div className="mb-4 w-full">
+                  <Input
+                    type="email"
+                    placeholder="E-mail"
+                    name="email"
+                    icon={Mail}
+                  />
+                </div>
+                <div className="mb-2 w-full">
+                  <Input
+                    type="password"
+                    placeholder="Senha"
+                    name="password"
+                    icon={LockKeyhole}
+                  />
+                </div>
+                <div className="mb-6 pl-1">
+                  <Link
+                    href={"#"}
+                    className="text-xs text-slate-700"
+                  >
+                    Esqueceu a senha?
+                  </Link>
+                </div>
 
-              <div className="mb-2 w-full">
-                <Input
-                  defaultValue=""
-                  type="password"
-                  placeholder="Senha"
-                  className="bg-white"
-                  {...register("password", { required: true })}
-                />
-                <span className="text-red-600 -mt-6 text-xs pl-2">
-                  {errors?.password?.message}
-                </span>
+                <Button
+                  type="submit"
+                  className="w-full bg-amber-600 hover:bg-amber-600/90 my-4"
+                  aria-label="Submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Entrando..." : "Entrar"}
+                </Button>
               </div>
-              <Link
-                href={"#"}
-                className="text-white md:text-slate-700 text-xs pl-1"
-              >
-                Esqueceu a senha?
-              </Link>
-
-              <Button
-                type="submit"
-                className="w-full bg-amber-600 hover:bg-amber-600/90 my-4"
-                aria-label="Submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Entrando..." : "Entrar"}
-              </Button>
-            </div>
-          </form>
+            </form>
+          </FormProvider>
         </div>
       </div>
     </main>

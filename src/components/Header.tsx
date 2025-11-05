@@ -2,6 +2,7 @@
 
 import { LogOut, User, UserCheck } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { logout } from "@/lib/auth";
 
 export function Header() {
   return (
@@ -15,7 +16,10 @@ export function Header() {
           <UserCheck color="#1DBC60" size={20} />
           <span>usuario@email.com</span>
         </div>
-        <button className="flex items-center gap-1 text-red-600 hover:text-red-700 transition cursor-pointer">
+        <button
+          className="flex items-center gap-1 text-red-600 hover:text-red-700 transition cursor-pointer"
+          onClick={() => logout()}
+        >
           <LogOut size={20} />
         </button>
       </div>
