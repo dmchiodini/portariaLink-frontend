@@ -58,9 +58,9 @@ export default function Login() {
             height={100}
           />
         </div>
-        <div className="md:bg-slate-700 bg-white w-full md:w-80 h-full flex flex-col items-center md:justify-center rounded-xl p-6 gap-4">
+        <div className="bg-slate-700 w-full md:w-80 h-full flex flex-col items-center md:justify-center rounded-xl p-4 gap-4">
           <Image
-            src={"/logo-light.png"}
+            src={"/logo-dark.png"}
             alt={""}
             width={200}
             height={100}
@@ -69,7 +69,7 @@ export default function Login() {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
               <div className="md:bg-slate-200  p-4 rounded-xl w-full">
-                <h1 className="text-2xl font-bold mb-4 text-center text-slate-700">
+                <h1 className="text-2xl font-bold mb-4 text-center text-slate-200">
                   Bem vindo
                 </h1>
                 <div className="mb-4 w-full">
@@ -91,7 +91,7 @@ export default function Login() {
                 <div className="mb-6 pl-1">
                   <Link
                     href={"#"}
-                    className="text-xs text-slate-700"
+                    className="text-xs text-foreground md:text-background"
                   >
                     Esqueceu a senha?
                   </Link>
