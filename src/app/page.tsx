@@ -99,7 +99,6 @@ export default function Login() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-amber-600 hover:bg-amber-600/90 my-4"
                   aria-label="Submit"
                   disabled={isSubmitting}
                 >
