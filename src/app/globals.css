@@ -1,11 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-html,
-body {
-  height: 100%;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -81,6 +76,7 @@ body {
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.75 0.183 55.934);
+  --default: oklch(37.2% 0.044 257.287);
 }
 
 .dark {
@@ -115,6 +111,7 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.408 0.123 38.172);
+   --default: oklch(96.8% 0.007 247.896);
 }
 
 @layer base {

@@ -40,12 +40,18 @@ export default function Login() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-300 p-4 md:p-none">
       <div className="flex h-[400px] rounded-xl shadow-lg bg-white md:w-auto w-full">
-        <div className="md:flex items-center justify-center h-full w-80 hidden ">
-          <Image src={"/logo.png"} alt={""} width={250} height={250} />
+        <div className="md:flex flex-col items-center justify-center h-full w-80 hidden ">
+          <Image src={"/condominium.png"} alt={""} width={250} height={250} />
+          <Image
+            src={"/logo-light.png"}
+            alt={""}
+            width={200}
+            height={100}
+          />
         </div>
         <div className="md:bg-slate-700 bg-white w-full md:w-80 h-full flex flex-col items-center md:justify-center rounded-xl p-6 gap-4">
           <Image
-            src={"/logo-mobile.png"}
+            src={"/logo-light.png"}
             alt={""}
             width={200}
             height={100}

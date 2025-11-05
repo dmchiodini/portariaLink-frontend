@@ -1,4 +1,3 @@
-// src/lib/auth.ts
 'use client';
 
 import Cookies from 'js-cookie';
