@@ -1,12 +1,16 @@
 "use client";
 
-import { LogOut, User, UserCheck } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
-import { logout } from "@/lib/auth";
+import { LogOut, UserCheck } from "lucide-react";
+import { clearSession, getSession } from "@/lib/auth";
+import ThemeToggle from "./ThemeToggle";
+import { useContext } from "react";
+import { useAuthContext } from "@/context/authContext";
 
 export function Header() {
+  const session = getSession();
+
   return (
-    <header className="flex items-center justify-end bg-background dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3 gap-4">
+    <header className="flex items-center justify-end bg-background dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3 gap-4 shrink-0">
       <div className="flex items-center gap-2">
         <ThemeToggle />
       </div>
@@ -14,11 +18,11 @@ export function Header() {
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <UserCheck color="#1DBC60" size={20} />
-          <span>usuario@email.com</span>
+          <span>{session.user.email}</span>
         </div>
         <button
           className="flex items-center gap-1 text-red-600 hover:text-red-700 transition cursor-pointer"
-          onClick={() => logout()}
+          onClick={() => clearSession()}
         >
           <LogOut size={20} />
         </button>

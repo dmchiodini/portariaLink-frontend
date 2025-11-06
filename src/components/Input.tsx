@@ -58,7 +58,7 @@ export const Input = ({
               placeholder={placeholder}
               aria-invalid={!!error}
               aria-describedby={error ? `${name}-error` : undefined}
-              className={`  text-foreground md:text-background border border-slate-300                 
+              className={`text-foreground border border-slate-300                 
                  focus:border-2 focus:border-slate-300 focus:shadow-slate-300      
                ${Icon ? 'pl-10' : 'pl-3'} ${isPasswordInput ? 'pr-10' : 'pr-3'} ${error ? 'border-red-600' : ''}`}
               {...props}

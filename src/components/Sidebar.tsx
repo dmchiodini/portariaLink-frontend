@@ -5,22 +5,29 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users, Home, Package, User, CircleUser } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
+import { useAuthContext } from "@/context/authContext";
+import { getSession } from "@/lib/auth";
 
 const menuItems = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Usuários", href: "/dashboard/usuarios", icon: Users },
-  { name: "Moradores", href: "/dashboard/moradores", icon: Home },
-  { name: "Encomendas", href: "/dashboard/encomendas", icon: Package },
+  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Usuários", href: "/usuarios", icon: Users },
+  { name: "Moradores", href: "/moradores", icon: Home },
+  { name: "Encomendas", href: "/encomendas", icon: Package },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const session = getSession();
 
   return (
-    <aside className="flex flex-col justify-between bg-foreground dark:bg-gray-800 border-r border-slate-200 dark:border-gray-700 p-4">
+    <aside className="flex flex-col justify-between bg-foreground dark:bg-gray-800 border-r border-slate-200 dark:border-gray-700 p-4 h-full">
       <div>
-        <div className="text-xl font-bold mb-6 text-center">
+        <div className="flex justify-center mb-6 text-center">
           <Image src={"/logo-dark.png"} alt="logo" width={200} height={150} />
+        </div>
+        <div className="flex flex-col justify-center items-center gap-2 bg-slate-600 p-2 rounded-md mb-10">
+          <p className="font-semibold text-sm text-white">Olá, seja bem-vindo(a)</p>
+          <p className="font-semibold text-white">{session.user?.name}</p>
         </div>
         <nav className="space-y-2">
           {menuItems.map(({ name, href, icon: Icon }) => (
@@ -41,10 +48,7 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <div className="flex items-center gap-2 bg-slate-600 p-3 rounded-md text-sm">
-        <CircleUser size={20} color="#FFFFFF" />
-        <span className="font-semibold text-white w-full">Liliam Marques</span>
-      </div>
+
     </aside>
   );
 }
