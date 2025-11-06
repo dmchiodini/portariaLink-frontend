@@ -1,7 +1,10 @@
 import { ThemeProvider } from '@/components/themeProvider';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Roboto } from 'next/font/google';
+import { Roboto } from 'next/font/google';
+import { AuthProvider } from '@/context/authContext';
+import AuthGateWrapperClient from '@/guard/AuthGuardWrapperClient';
+import LayoutClient from '@/components/LayoutClient';
 
 const roboto = Roboto({
   weight: ['400', '500', '700', '900'],
@@ -22,11 +25,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${roboto.variable}`} suppressHydrationWarning>
-      <body className="antialiased">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body className="antialiased h-full">
+        <AuthProvider>
+          <ThemeProvider>
+            <AuthGateWrapperClient>
+              <LayoutClient>{children}</LayoutClient>
+            </AuthGateWrapperClient>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
-    </html>
+    </html >
   );
 }
